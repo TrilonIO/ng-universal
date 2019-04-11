@@ -69,6 +69,8 @@ Check out **[Trilon.io](https://Trilon.io)** for more info!
 
 Contact us at <hello@trilon.io>, and let's talk about your projects needs.
 
+<br><br>
+
 <p align="center">
   <a href="https://trilon.io" target="_blank">
         <img width="500" height="auto" src="https://trilon.io/trilon-logo-clear.png" alt="Trilon.io - Angular Universal, NestJS, JavaScript Application Consulting Development and Training">
