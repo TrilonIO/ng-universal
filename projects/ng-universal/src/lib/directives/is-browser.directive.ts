@@ -1,7 +1,6 @@
 import { Directive, TemplateRef, ViewContainerRef, OnInit } from '@angular/core';
 import { PlatformService } from '../services/platform.service';
 
-
 @Directive({
   // tslint:disable-next-line:directive-selector
   selector: '[isBrowser]'

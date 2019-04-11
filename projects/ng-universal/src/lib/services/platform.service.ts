@@ -30,11 +30,11 @@ export class PlatformService {
   }
 
   public get isBrowser(): boolean {
-    return isPlatformBrowser(this.platformId)
+    return isPlatformBrowser(this.platformId);
   }
 
   public get isServer(): boolean {
-    return isPlatformServer(this.platformId)
+    return isPlatformServer(this.platformId);
   }
 
   // Automatically remove from Cache

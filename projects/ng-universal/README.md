@@ -76,6 +76,3 @@ Contact us at <hello@trilon.io>, and let's talk about your projects needs.
 </p>
 
 <h3 align="center"> Made with :heart: by <a href="https://trilon.io">Trilon.io</a></h3>
-
----
-
