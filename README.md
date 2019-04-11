@@ -63,7 +63,9 @@ Copyright (c) 2016-2019 [Trilon](https://trilon.io)
 
 ----
 
-# Trilon - JavaScript, ASP.NET, Node, NestJS - Consulting | Training | Development
+# Trilon Consulting 
+
+## JavaScript, Node, NestJS Consulting from Open-Source Fanatics and Key Contributors!
 
 Check out **[Trilon.io](https://Trilon.io)** for more info! 
 
