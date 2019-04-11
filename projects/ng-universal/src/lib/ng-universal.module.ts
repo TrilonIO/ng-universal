@@ -1,11 +1,27 @@
 import { NgModule } from '@angular/core';
-import { NgUniversalComponent } from './ng-universal.component';
+import { IsBrowserDirective } from './directives/is-browser.directive';
+import { IsServerDirective } from './directives/is-server.directive';
+import { PlatformService } from './services/platform.service';
+import { WindowService } from './services/window.service';
 
 @NgModule({
-  declarations: [NgUniversalComponent],
-  imports: [
+  declarations: [
+    IsBrowserDirective,
+    IsServerDirective,
+
   ],
-  exports: [NgUniversalComponent]
+  imports: [
+
+  ],
+  exports: [
+    IsBrowserDirective,
+    IsServerDirective,
+
+  ],
+  providers: [
+    PlatformService,
+    WindowService
+  ]
 })
 export class NgUniversalModule {
   constructor() {
