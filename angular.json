@@ -154,32 +154,32 @@
       }
     },
     "ng-universal": {
-      "root": "projects/ng-universal",
-      "sourceRoot": "projects/ng-universal/src",
+      "root": "libraries/ng-universal",
+      "sourceRoot": "libraries/ng-universal/src",
       "projectType": "library",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "projects/ng-universal/tsconfig.lib.json",
-            "project": "projects/ng-universal/ng-package.json"
+            "tsConfig": "libraries/ng-universal/tsconfig.lib.json",
+            "project": "libraries/ng-universal/ng-package.json"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/ng-universal/src/test.ts",
-            "tsConfig": "projects/ng-universal/tsconfig.spec.json",
-            "karmaConfig": "projects/ng-universal/karma.conf.js"
+            "main": "libraries/ng-universal/src/test.ts",
+            "tsConfig": "libraries/ng-universal/tsconfig.spec.json",
+            "karmaConfig": "libraries/ng-universal/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/ng-universal/tsconfig.lib.json",
-              "projects/ng-universal/tsconfig.spec.json"
+              "libraries/ng-universal/tsconfig.lib.json",
+              "libraries/ng-universal/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
