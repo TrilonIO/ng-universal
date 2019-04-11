@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NgUniversalModule } from '../../projects/ng-universal/src/public-api';
+import { NgUniversalModule } from '../../libraries/ng-universal/src/public-api';
 
 @NgModule({
   declarations: [
