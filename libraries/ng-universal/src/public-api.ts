@@ -3,6 +3,7 @@
  */
 
 export * from './lib/ng-universal.module';
+export * from './lib/transfer-http-post-cache.module';
 
 export * from './lib/directives/is-browser.directive';
 export * from './lib/directives/is-server.directive';

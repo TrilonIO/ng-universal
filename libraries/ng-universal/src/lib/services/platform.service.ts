@@ -1,7 +1,8 @@
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID, Optional } from '@angular/core';
 import { isPlatformBrowser, isPlatformServer, DOCUMENT } from '@angular/common';
 import { TransferState, makeStateKey } from '@angular/platform-browser';
 import { WindowService } from './window.service';
+import { NgUniversalConfig } from '../ng-universal.config';
 // import * as mobileDetect from 'mobile-detect';
 
 @Injectable({
@@ -11,13 +12,25 @@ export class PlatformService {
 
   // public md: MobileDetect;
 
+  config: NgUniversalConfig;
+
   constructor(
+    @Optional() optionalConfig: NgUniversalConfig,
     @Inject(PLATFORM_ID) private platformId: object,
     @Inject(DOCUMENT) private document: Document,
     private windowService: WindowService,
     private transferState: TransferState
   ) {
     // this.md = new mobileDetect(navigator.userAgent);
+    this.config = optionalConfig;
+
+    if (this.isBrowser) {
+      this.windowService.firstSSRRender = true;
+
+      setTimeout(() => {
+        this.windowService.firstSSRRender = false;
+      }, 4000);
+    }
   }
 
   public get connection() {

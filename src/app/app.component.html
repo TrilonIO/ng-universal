@@ -24,4 +24,11 @@
   </li>
 </ul>
 
+<div *isServer>
+  <h1>This is only visible to the Server!</h1>
+</div>
+<div *isBrowser>
+  <h1>This is only visible to the BROWSER!</h1>
+</div>
+
 <router-outlet></router-outlet>
