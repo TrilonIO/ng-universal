@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { PlatformService, WindowService } from '../../libraries/ng-universal/src/public-api';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,8 @@ export class AppComponent {
 
   constructor(
     private platform: PlatformService,
-    private windowService: WindowService
+    private windowService: WindowService,
+    private http: HttpClient
   ) {
     console.log(`\n\nTest PlatformService: `);
     console.log(`isBrowser: ${this.platform.isBrowser}`);
@@ -31,5 +33,14 @@ export class AppComponent {
         console.log(windowInstance.firstSSRRender);
       }, 5001);
     }
+
+    this.demoHttpPost();
+  }
+
+  demoHttpPost() {
+    this.http.post('http://demo0791171.mockable.io/products', {})
+      .subscribe(response => {
+        console.log(response);
+      });
   }
 }
