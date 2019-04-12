@@ -11,3 +11,5 @@ import { TransferHttpPostCacheInterceptor } from './services/transfer-http-post-
   ]
 })
 export class TransferHttpPostCacheModule { }
+
+
