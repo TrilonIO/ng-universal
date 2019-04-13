@@ -31,4 +31,10 @@
   <h1>This is only visible to the BROWSER!</h1>
 </div>
 
+<button (click)="demoHttpPost()">Trigger Demo Http POST</button>
+
+<pre>
+  {{ postResponse | json }}
+</pre>
+
 <router-outlet></router-outlet>

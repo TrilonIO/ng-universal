@@ -11,6 +11,7 @@ import { ApplicationRef, Injectable, NgModule, InjectionToken, Inject, ModuleWit
 import { BrowserTransferStateModule, TransferState, makeStateKey, StateKey } from '@angular/platform-browser';
 import { Observable, of as observableOf } from 'rxjs';
 import { tap, take, filter } from 'rxjs/operators';
+
 import { TRANSFER_STATE_CACHE_OPTIONS } from './http-transfer.tokens';
 import { TransferStateOptions } from './transfer-state-options.interface';
 import { TransferHttpResponse } from './http-transfer-response.interface';

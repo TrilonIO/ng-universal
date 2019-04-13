@@ -1,8 +1,47 @@
 {
   "name": "@trilon/ng-universal",
+  "description": "Angular Universal Schematics and Helpers - Brought to you by Trilon.io",
   "version": "0.0.1-alpha",
+  "private": false,
+  "author": {
+    "name": "Trion",
+    "email": "hello@trilon.io",
+    "url": "https://trilon.io"
+  },
+  "contributors": [
+    {
+      "name": "Mark Pieszak",
+      "email": "hello@trilon.io",
+      "url": "https://twitter.com/MarkPieszak"
+    },
+    {
+      "name": "Kamil Mysliwiec",
+      "email": "hello@trilon.io",
+      "url": "https://twitter.com/KamMysliwiec"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TrilonIO/ng-universal"
+  },
+  "bugs": {
+    "url": "https://github.com/TrilonIO/ng-universal/issues"
+  },
+  "license": "MIT",
   "peerDependencies": {
     "@angular/common": "^7.2.0",
-    "@angular/core": "^7.2.0"
-  }
+    "@angular/core": "^7.2.0",
+    "@angular/platform-browser": "^7.2.0"
+  },
+  "keywords": [
+    "angular",
+    "angular8",
+    "angular universal",
+    "angular-universal",
+    "universal",
+    "angular ssr",
+    "angular schematics",
+    "trilon",
+    "trilon.io"
+  ]
 }

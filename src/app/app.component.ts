@@ -9,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AppComponent {
   title = '@trilon/ng-universal-demo';
+  postResponse = {};
 
   constructor(
     private platform: PlatformService,
@@ -38,9 +39,13 @@ export class AppComponent {
   }
 
   demoHttpPost() {
-    this.http.post('http://demo0791171.mockable.io/products', {})
-      .subscribe(response => {
-        console.log(response);
-      });
+    this.http.post('https://jsonplaceholder.typicode.com/posts', {
+      title: 'foo',
+      body: 'bar',
+      userId: 1
+    }).subscribe(response => {
+      console.log(response);
+      this.postResponse = response;
+    });
   }
 }

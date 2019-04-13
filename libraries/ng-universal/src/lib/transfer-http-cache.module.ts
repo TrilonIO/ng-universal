@@ -1,6 +1,7 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { BrowserTransferStateModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpRequest } from '@angular/common/http';
+
 import { TransferHttpCacheInterceptor } from './interceptors/http-transfer-cache.interceptor';
 import { TransferStateOptions } from './interceptors/transfer-state-options.interface';
 import { TRANSFER_STATE_CACHE_OPTIONS } from './interceptors/http-transfer.tokens';

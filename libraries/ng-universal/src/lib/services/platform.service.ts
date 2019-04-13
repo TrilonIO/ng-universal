@@ -5,6 +5,7 @@ import { WindowService } from './window.service';
 import { NgUniversalConfig } from '../ng-universal.config';
 // import * as mobileDetect from 'mobile-detect';
 
+// @dynamic
 @Injectable({
   providedIn: 'root'
 })

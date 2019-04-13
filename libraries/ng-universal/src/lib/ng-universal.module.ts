@@ -1,9 +1,10 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
+import { BrowserTransferStateModule } from '@angular/platform-browser';
+
 import { IsBrowserDirective } from './directives/is-browser.directive';
 import { IsServerDirective } from './directives/is-server.directive';
 import { PlatformService } from './services/platform.service';
 import { WindowService } from './services/window.service';
-import { BrowserTransferStateModule } from '@angular/platform-browser';
 import { NgUniversalConfig } from './ng-universal.config';
 
 @NgModule({
