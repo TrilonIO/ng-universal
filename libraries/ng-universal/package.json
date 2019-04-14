@@ -1,7 +1,7 @@
 {
   "name": "@trilon/ng-universal",
   "description": "Angular Universal Schematics and Helpers - Brought to you by Trilon.io",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "author": {
     "name": "Trion",
     "email": "hello@trilon.io",

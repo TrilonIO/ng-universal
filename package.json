@@ -7,7 +7,7 @@
     "build": "ng build",
     "build:ng-universal": "rm -rf ./dist/ng-universal && ng build ng-universal &&  npm run pack:ng-universal",
     "pack:ng-universal": "cd dist/ng-universal && npm pack",
-    "publish:ng-universal": "npm publish ./dist/ng-universal/trilon-ng-universal-1.0.4.tgz --access=public",
+    "publish:ng-universal": "npm publish ./dist/ng-universal/trilon-ng-universal-1.0.5.tgz --access=public",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
