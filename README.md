@@ -28,7 +28,7 @@ $ npm i -S @trilon/ng-universal
 ## Modules Available
 
 - [NgUniversalModule](#nguniversalmodule-setup)
-- [NgUniversalModule](#TransferHttpCacheModule-setup)
+- [TransferHttpCacheModule](#TransferHttpCacheModule-setup)
 
 ---
 
