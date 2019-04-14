@@ -25,9 +25,14 @@ Install & save the library to your package.json:
 $ npm i -S @trilon/ng-universal
 ```
 
+## Modules Available
+
+- [NgUniversalModule](#nguniversalmodule-setup)
+- [NgUniversalModule](#TransferHttpCacheModule-setup)
+
 ---
 
-### AppModule Setup
+## NgUniversalModule Setup
 
 Now add ApplicationInsightsModule to your Angular Root `AppModule`:
 
@@ -86,12 +91,40 @@ Take as an example a Twitter Feed section that's connected to 3rd party Componen
 
 More Documentation Coming soon...
 
+---
+
+# TransferHttpCacheModule Setup
+
+In order to prevent UI flickers with Angular Universal we want to make sure we're caching Http responses and re-using them during the client-side render. This Module helps not only Cache `GET` requests, but `POST` requests as well.
+
+```ts
+// Import the Application Insights module and the service provider
+import { TransferHttpCacheModule } from '@trilon/ng-universal';
+
+export function cachePostFilter (req, key) {
+  // This will Cache -ALL- "POST" Responses, you can also make sure only specific requests get cached (or none)
+  // By utilizing req.url and allowing specific ones to return true
+  return true;
+}
+
+@NgModule({
+  imports: [
+    // ...
+    // Add the Module to your imports
+    TransferHttpCacheModule.forRoot({
+      cachePOSTFilter: cachePostFilter
+    })
+  ]
+})
+export class AppModule { }
+```
+
 
 # License
 
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge&color=e51384)](/LICENSE) 
 
-Copyright (c) 2016-2019 [Trilon](https://trilon.io)
+Copyright (c) 2019 [Trilon](https://trilon.io)
 
 [![Twitter Follow](https://img.shields.io/twitter/follow/Trilon_io.svg?style=social)](https://twitter.com/Trilon_io)
 
