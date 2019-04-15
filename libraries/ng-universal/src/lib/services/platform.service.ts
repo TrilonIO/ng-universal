@@ -12,8 +12,7 @@ import { NgUniversalConfig } from '../ng-universal.config';
 export class PlatformService {
 
   // public md: MobileDetect;
-
-  config: NgUniversalConfig;
+  private config: NgUniversalConfig;
 
   constructor(
     @Optional() optionalConfig: NgUniversalConfig,
@@ -52,9 +51,9 @@ export class PlatformService {
   }
 
   // Automatically remove from Cache
-  public doNotCache(url: string) {
+  public doNotCache(url: string, requestMethod: 'GET' | 'POST' = 'GET') {
     if (this.isBrowser) {
-      this.transferState.remove(makeStateKey('G.' + url));
+      this.transferState.remove(makeStateKey((requestMethod === 'GET' ? 'G.' : 'P.') + url));
     }
   }
 

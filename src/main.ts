@@ -3,7 +3,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
-import { prebootstrap, afterbootstrap } from '../libraries/ng-universal/src/lib/util/bootstrap.helpers';
+import { prebootstrap, afterbootstrap } from 'libraries/ng-universal/src/public-api';
 
 if (environment.production) {
   enableProdMode();

@@ -9,3 +9,6 @@ export * from './lib/directives/is-browser.directive';
 export * from './lib/directives/is-server.directive';
 export * from './lib/services/platform.service';
 export * from './lib/services/window.service';
+
+export * from './lib/util/bootstrap.helpers';
+export * from './lib/util/create-node-mocks';
