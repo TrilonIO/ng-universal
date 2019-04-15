@@ -11,4 +11,4 @@ export * from './lib/services/platform.service';
 export * from './lib/services/window.service';
 
 export * from './lib/util/bootstrap.helpers';
-export * from './lib/util/create-node-mocks';
+export * from './lib/util/create-window-mocks';
