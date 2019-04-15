@@ -11,6 +11,7 @@ import { HttpClient } from '@angular/common/http';
 export class AppComponent {
   title = '@trilon/ng-universal-demo';
   postResponse = {};
+  getResponse = [];
 
   constructor(
     private platform: PlatformService,
@@ -37,6 +38,15 @@ export class AppComponent {
     }
 
     this.demoHttpPost();
+    this.demoHttpGet();
+  }
+
+  demoHttpGet() {
+    this.http.get('https://jsonplaceholder.typicode.com/todos').subscribe((response: []) => {
+      console.log('GET response');
+      // console.log(response);
+      this.getResponse = response;
+    });
   }
 
   demoHttpPost() {

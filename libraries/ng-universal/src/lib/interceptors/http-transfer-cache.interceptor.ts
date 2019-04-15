@@ -1,14 +1,14 @@
 import {
-  HTTP_INTERCEPTORS,
   HttpEvent,
   HttpHandler,
   HttpHeaders,
   HttpInterceptor,
   HttpRequest,
-  HttpResponse
+  HttpResponse,
+  HttpParams
 } from '@angular/common/http';
-import { ApplicationRef, Injectable, NgModule, InjectionToken, Inject, ModuleWithProviders } from '@angular/core';
-import { BrowserTransferStateModule, TransferState, makeStateKey, StateKey } from '@angular/platform-browser';
+import { ApplicationRef, Injectable, Inject } from '@angular/core';
+import { TransferState, makeStateKey, StateKey } from '@angular/platform-browser';
 import { Observable, of as observableOf } from 'rxjs';
 import { tap, take, filter } from 'rxjs/operators';
 
@@ -28,7 +28,19 @@ function getHeadersMap(headers: HttpHeaders) {
 export class TransferHttpCacheInterceptor implements HttpInterceptor {
 
   private isCacheActive = true;
-  private hashSeparator = '::';
+  // private hashSeparator = '::';
+
+  private invalidateCacheEntry(url: string) {
+    Object.keys(this.transferState['store'])
+      .forEach(key => key.includes(url) ? this.transferState.remove(makeStateKey(key)) : null);
+  }
+
+  private makeCacheKey(method: string, url: string, params: HttpParams): StateKey<string> {
+    // make the params encoded same as a url so it's easy to identify
+    const encodedParams = params.keys().sort().map(k => `${k}=${params.get(k)}`).join('&');
+    const key = method[0] + url + '?' + encodedParams;
+    return makeStateKey<TransferHttpResponse>(key);
+  }
 
   constructor(
     appRef: ApplicationRef,
@@ -49,7 +61,7 @@ export class TransferHttpCacheInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    const storeKey: StateKey<TransferHttpResponse> = makeStateKey<TransferHttpResponse>(this.constructCacheKey(req));
+    const storeKey = this.makeCacheKey(req.method, req.url, req.params);
 
     // Stop using the cache if there is a mutating call.
     if (!this.isAllowedRequestMethod(req)) {
@@ -66,6 +78,7 @@ export class TransferHttpCacheInterceptor implements HttpInterceptor {
       // Request found in cache. Respond using it.
       const response = this.transferState.get(storeKey, {} as TransferHttpResponse);
       this.invalidateCacheEntry(storeKey);
+
       return observableOf(new HttpResponse<any>({
         body: response.body,
         headers: new HttpHeaders(response.headers),
@@ -73,6 +86,7 @@ export class TransferHttpCacheInterceptor implements HttpInterceptor {
         statusText: response.statusText,
         url: response.url,
       }));
+
     } else {
       // Request not found in cache. Make the request and cache it.
       const httpEvent = next.handle(req);
@@ -99,55 +113,44 @@ export class TransferHttpCacheInterceptor implements HttpInterceptor {
   }
 
   private isPostRequestAllowed(req: HttpRequest<any>, storeKey: string) {
+    if (req.method !== 'POST') {
+      return true;
+    }
     return req.method === 'POST' && this.options.cachePOSTFilter && this.options.cachePOSTFilter(req, storeKey);
   }
 
-  private invalidateCacheEntry(key: StateKey<TransferHttpResponse>) {
-    if (this.transferState.hasKey(key)) {
-      this.transferState.remove(key);
-    }
-  }
+  // public constructCacheKey(req: HttpRequest<any>) {
+  //   let key = `${req.method[0]}.${req.url}`;
+  //   key = this.options.cacheKeyTransformer
+  //     ? this.options.cacheKeyTransformer(key)
+  //     : key;
 
-  public constructCacheKey(req: HttpRequest<any>) {
-    let key = `${req.method[0]}.${req.url}`;
-    key = this.options.cacheKeyTransformer
-      ? this.options.cacheKeyTransformer(key)
-      : key;
+  //   if (req.method === 'POST') {
+  //     key += this.hashSeparator + this.hashParams(req.body);
+  //   }
 
-    // key = key.substr(0, 2) + key.substr(2).replace(/[^\w\s]/gi, '_');
+  //   if (req.method === 'GET') {
+  //     const encodedParams = req.params.keys().sort().map(k => `${k}=${req.params.get(k)}`).join('&');
+  //     key += this.hashSeparator + encodedParams;
+  //   }
 
-    if (req.method === 'POST') {
-      key += this.hashSeparator + this.hashParams(req.body);
-    }
+  //   return key;
+  // }
 
-    if (req.method === 'GET') {
-      // const hashedParams = req.params.keys().map((param: string) => {
-      //   return { key: req.params.get(param) };
-      // });
-      const encodedParams = req.params.keys().sort().map(k => `${k}=${req.params.get(k)}`).join('&');
+  // private hashParams(body: any) {
+  //   let hash = 0;
+  //   const value = JSON.stringify(body);
+  //   if (value.length === 0) {
+  //     return hash;
+  //   }
 
-      // const key = (method === 'GET' ? 'G.' : 'H.') + url + '?' + encodedParams;
-
-      key += this.hashSeparator + encodedParams;
-    }
-
-    return key;
-  }
-
-  private hashParams(body: any) {
-    let hash = 0;
-    const value = JSON.stringify(body);
-    if (value.length === 0) {
-      return hash;
-    }
-
-    for (let i = 0; i < value.length; i++) {
-      const char = value.charCodeAt(i);
-      // tslint:disable-next-line:no-bitwise
-      hash = ((hash << 5) - hash) + char;
-      // tslint:disable-next-line:no-bitwise
-      hash = hash & hash; // Convert to 32bit integer
-    }
-    return hash.toString();
-  }
+  //   for (let i = 0; i < value.length; i++) {
+  //     const char = value.charCodeAt(i);
+  //     // tslint:disable-next-line:no-bitwise
+  //     hash = ((hash << 5) - hash) + char;
+  //     // tslint:disable-next-line:no-bitwise
+  //     hash = hash & hash; // Convert to 32bit integer
+  //   }
+  //   return hash.toString();
+  // }
 }
