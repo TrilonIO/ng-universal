@@ -31,7 +31,8 @@
   "peerDependencies": {
     "@angular/common": "^7.0.0",
     "@angular/core": "^7.0.0",
-    "@angular/platform-browser": "^7.0.0"
+    "@angular/platform-browser": "^7.0.0",
+    "domino": "^2.1.0"
   },
   "keywords": [
     "angular",

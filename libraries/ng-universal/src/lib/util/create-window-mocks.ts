@@ -38,7 +38,14 @@ export function createWindowMocks(
   global['navigator'] = {};
   global['CSS'] = null;
   global['Prism'] = null;
-  global['HTMLElement'] = null;
+  // global['HTMLElement'] = null;
+  // global['HTMLElement'] = win.HTMLElement;
+  // global['DOMTokenList'] = win.DOMTokenList;
+  // global['Node'] = win.Node;
+  // global['Text'] = win.Text;
+  // global['HTMLCanvasElement'] = win.HTMLCanvasElement;
+  // global['navigator'] = win.navigator;
+  // global['MutationObserver'] = getMockMutationObserver();
 
   Object.keys(globalNodeMocks).forEach(key => {
     global[key] = globalNodeMocks[key];
@@ -52,4 +59,16 @@ export function createWindowMocks(
       };
     }
   });
+}
+
+export function getMockMutationObserver() {
+  return class {
+    observe(node, options) {
+    }
+    disconnect() {
+    }
+    takeRecords() {
+      return [];
+    }
+  };
 }
