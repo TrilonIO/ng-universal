@@ -126,10 +126,20 @@ In order to prevent UI flickers with Angular Universal we want to make sure we'r
 // Import the Application Insights module and the service provider
 import { TransferHttpCacheModule } from '@trilon/ng-universal';
 
-export function cachePostFilter (req, key) {
-  // This will Cache -ALL- "POST" Responses, you can also make sure only specific requests get cached (or none)
-  // By utilizing req.url and allowing specific ones to return true
-  return true;
+// Filter out which POST requests you -want- to Cache
+export function cachePostFilter(req, key) {
+  // If intercepted request URL contains any part of the below list, cache it
+  const cacheList = ['/posts', '/products'];
+  
+  const cacheRequest = cacheList.filter(p => {
+    // Test against current req.url that's intercepted
+    if (req.url.includes(p)) {
+      return true;
+    }
+    return false;
+  }).length >= 0;
+
+  return cacheRequest;
 }
 
 @NgModule({
