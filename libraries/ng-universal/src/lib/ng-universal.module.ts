@@ -6,12 +6,13 @@ import { IsServerDirective } from './directives/is-server.directive';
 import { PlatformService } from './services/platform.service';
 import { WindowService } from './services/window.service';
 import { NgUniversalConfig } from './ng-universal.config';
+import { SeoService } from './services/seo.service';
+import { LinkService } from './services/link.service';
 
 @NgModule({
   declarations: [
     IsBrowserDirective,
     IsServerDirective,
-
   ],
   imports: [
     BrowserTransferStateModule
@@ -19,11 +20,12 @@ import { NgUniversalConfig } from './ng-universal.config';
   exports: [
     IsBrowserDirective,
     IsServerDirective,
-
   ],
   providers: [
     PlatformService,
-    WindowService
+    SeoService,
+    WindowService,
+    LinkService
   ]
 })
 export class NgUniversalModule {
