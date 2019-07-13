@@ -77,8 +77,8 @@ import { SeoService } from '@trilon/ng-universal';
 export class AppComponent {
   constructor(private seo: SeoService) {
     const config: SeoConfig = {
-      title: 'Trilon Ng-Universal Demo',
-      description: 'SEO - Description',
+      title: 'Trilon SeoService Demo',
+      description: 'Trilon SEO - Description',
       locale: 'en_US',
       url: 'https://trilon.io',
       type: 'website',
