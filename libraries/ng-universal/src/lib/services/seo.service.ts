@@ -4,6 +4,7 @@ import { Meta, Title, MetaDefinition } from '@angular/platform-browser';
 
 import { SeoModel } from './seo.interface';
 import { LinkService } from './link.service';
+import { LinkDefinition } from './link-definition.type';
 
 @Injectable({
   providedIn: 'root'
@@ -24,24 +25,26 @@ export class SeoService {
     console.log(seoModel);
 
     Object.keys(seoModel).forEach(key => {
-      const val: any = seoModel[key];
-      console.log(key, val);
+      const metaVal: any = seoModel[key];
 
       switch (key) {
         case 'title':
-          this.title.setTitle(val);
+          this.title.setTitle(metaVal);
           return;
         case 'meta':
-          val.map((meta: MetaDefinition) => {
+          metaVal.map((meta: MetaDefinition) => {
             console.log(meta);
-            // this.createMetaTag(meta.name ? meta.name : meta.property, { content: meta.content });
             this.meta.updateTag(meta);
             return meta;
           });
           return;
         case 'link':
-          console.log('>>> link');
-          this.linkService.updateTag(val);
+          metaVal.map((link: LinkDefinition) => {
+            console.log('>>> link');
+            console.log(link);
+            this.linkService.updateTag(link);
+            return link;
+          });
           return;
         default:
           return;

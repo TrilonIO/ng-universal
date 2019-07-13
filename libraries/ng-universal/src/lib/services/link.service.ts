@@ -27,10 +27,13 @@ export class LinkService implements OnDestroy {
     console.log('updateTag!');
     console.log(selector);
     const linkElement = <HTMLLinkElement> this.document.head.querySelector(selector)
-      || this.document.head.appendChild(this.document.createElement('link'));
+    || this.document.head.appendChild(this.document.createElement('link'));
 
+    console.log(linkElement);
     if (linkElement) {
       Object.keys(tag).forEach((prop: string) => {
+        console.log('loop');
+        console.log(tag, prop);
         linkElement[prop] = tag[prop];
       });
     }

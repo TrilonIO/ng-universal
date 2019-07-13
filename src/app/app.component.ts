@@ -120,10 +120,8 @@ export class AppComponent implements AfterViewInit {
         { property: 'twitter:description', content: description },
       ],
       link: [
-        {
-          target: 'LinkService - target test',
-          charset: 'LinkService - charset'
-        }
+        { target: 'LinkService - target test', charset: 'LinkService - charset' },
+        { lang: 'LinkService - target test', charset: 'en_US' }
       ],
     };
 
