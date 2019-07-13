@@ -75,7 +75,10 @@ import { SeoService } from '@trilon/ng-universal';
   selector: 'app-root'
 })
 export class AppComponent {
-  constructor(private seo: SeoService) {
+
+  constructor(
+    private seo: SeoService
+  ) {
     const config: SeoConfig = {
       title: 'Trilon SeoService Demo',
       description: 'Trilon SEO - Description',
@@ -106,6 +109,7 @@ export class AppComponent {
     // initialize your base Meta setup
     // (this can be done again at any point if you need to replace it entirely)
     this.seo.initializeBaseMeta(config);
+    // ^^^^
   }
 }
 ```
