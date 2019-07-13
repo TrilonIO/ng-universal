@@ -13,7 +13,7 @@ export interface SeoConfig {
   url?: string;
   type?: string;
 
-  tileColor?: string;
+  msapplicationTileColor?: string;
   themeColor?: string;
 
   og?: {

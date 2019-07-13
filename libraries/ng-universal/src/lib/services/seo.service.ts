@@ -78,6 +78,15 @@ export class SeoService {
           : []
         ),
 
+        ...(this.metaUpdate.msapplicationTileColor
+          ? [{ property: 'msapplication-TileColor', content: this.metaUpdate.msapplicationTileColor }]
+          : []),
+
+        ...(this.metaUpdate.themeColor
+          ? [{ property: 'theme-color', content: this.metaUpdate.themeColor }]
+          : []),
+
+
         // Blog-Related
         ...(this.metaUpdate.article && this.metaUpdate.article.tags
           ? [ ...this.metaUpdate.article.tags.map(tag => ({ name: 'article:tag', content: `${tag}`}) )]
