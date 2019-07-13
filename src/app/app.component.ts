@@ -84,6 +84,8 @@ export class AppComponent implements AfterViewInit {
       locale: 'en_US',
       url: 'https://trilon.io',
       type: 'website',
+      msapplicationTileColor: '#000',
+      themeColor: '#fff',
       og: {
         site_name: 'Trilon Consulting',
         image_url: 'https://trilon.io/meta/og-image.png'
