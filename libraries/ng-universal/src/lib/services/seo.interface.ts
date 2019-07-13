@@ -22,6 +22,7 @@ export interface SeoConfig {
       tags?: string[];
       section?: string;
   };
+  link?: LinkDefinition[];
 }
 export interface SeoModel {
 

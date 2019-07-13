@@ -33,21 +33,13 @@ export class SeoService {
     const seo: SeoModel = {
       title: seoConfig.title,
       meta: [
+        // Essentials
         { property: 'keywords', content: seoConfig.keywords },
-
         { property: 'og:url', content: seoConfig.url },
         { property: 'og:locale', content: seoConfig.locale },
         { property: 'og:type', content: seoConfig.type },
         { property: 'og:site_name', content: seoConfig.og.site_name },
         { property: 'twitter:card', content: seoConfig.og.summary_card },
-
-        ...(seoConfig.article && seoConfig.article.tags
-          ? [ ...seoConfig.article.tags.map(tag => ({ name: 'article:tag', content: `${tag}`}) )]
-          : []),
-
-        ...(seoConfig.article && seoConfig.article.section
-         ? [{ property: 'article:section', content: seoConfig.article.section }]
-         : []),
 
         // Title
         { property: 'og:title', content: `${seoConfig.title}` },
@@ -59,11 +51,22 @@ export class SeoService {
         { name: 'description', content: seoConfig.description },
         { property: 'og:description', content: seoConfig.description },
         { property: 'twitter:description', content: seoConfig.description },
+
+        // Non essentials
+        ...(seoConfig.article && seoConfig.article.tags
+          ? [ ...seoConfig.article.tags.map(tag => ({ name: 'article:tag', content: `${tag}`}) )]
+          : []),
+
+        ...(seoConfig.article && seoConfig.article.section
+         ? [{ property: 'article:section', content: seoConfig.article.section }]
+         : []),
       ],
-      link: [
-        { target: 'LinkService - target test', charset: 'LinkService - charset' },
-        { lang: 'LinkService - target test', charset: 'en_US' }
-      ],
+      link: (seoConfig.link ? seoConfig.link : null),
+        // ?
+        // link: [
+        //   { target: 'LinkService - target test', charset: 'LinkService - charset' },
+        //   { lang: 'LinkService - target test', charset: 'en_US' }
+        // ],
     };
 
     this.updateMeta(seo);

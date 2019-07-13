@@ -93,6 +93,10 @@ export class AppComponent implements AfterViewInit {
         tags: ['seo', 'trilon', 'universal'],
         section: 'trilon'
       },
+      link: [
+        { target: 'LinkService - target test', charset: 'LinkService - charset' },
+        { lang: 'LinkService - target test', charset: 'en_US' }
+      ],
     };
 
     this.seo.generateTags(config);
