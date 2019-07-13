@@ -6,6 +6,23 @@ export interface MetaTag {
   content: string;
 }
 
+
+export interface SeoConfig {
+  title: string;
+  description: string;
+  locale?: string;
+  url: string;
+  type?: string;
+  og?: {
+      site_name?: string;
+      summary_card?: string;
+  };
+  keywords?: string;
+  article?: {
+      tags?: string[];
+      section?: string;
+  };
+}
 export interface SeoModel {
 
   title?: string;

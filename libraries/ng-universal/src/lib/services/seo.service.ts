@@ -2,7 +2,7 @@ import { Injectable, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { Meta, Title, MetaDefinition } from '@angular/platform-browser';
 
-import { SeoModel } from './seo.interface';
+import { SeoModel, SeoConfig } from './seo.interface';
 import { LinkService } from './link.service';
 import { LinkDefinition } from './link-definition.type';
 
@@ -24,6 +24,49 @@ export class SeoService {
     return this.baseMeta = {
       ...meta
     };
+  }
+
+  generateTags(seoConfig: SeoConfig) {
+    console.log('generateTags');
+    console.log(seoConfig);
+
+    const seo: SeoModel = {
+      title: seoConfig.title,
+      meta: [
+        { property: 'keywords', content: seoConfig.keywords },
+
+        { property: 'og:url', content: seoConfig.url },
+        { property: 'og:locale', content: seoConfig.locale },
+        { property: 'og:type', content: seoConfig.type },
+        { property: 'og:site_name', content: seoConfig.og.site_name },
+        { property: 'twitter:card', content: seoConfig.og.summary_card },
+
+        ...(seoConfig.article && seoConfig.article.tags
+          ? [ ...seoConfig.article.tags.map(tag => ({ name: 'article:tag', content: `${tag}`}) )]
+          : []),
+
+        ...(seoConfig.article && seoConfig.article.section
+         ? [{ property: 'article:section', content: seoConfig.article.section }]
+         : []),
+
+        // Title
+        { property: 'og:title', content: `${seoConfig.title}` },
+        { property: 'twitter:title', content: `${seoConfig.title}` },
+        { property: 'twitter:image:alt', content: seoConfig.title
+        },
+
+        // Description
+        { name: 'description', content: seoConfig.description },
+        { property: 'og:description', content: seoConfig.description },
+        { property: 'twitter:description', content: seoConfig.description },
+      ],
+      link: [
+        { target: 'LinkService - target test', charset: 'LinkService - charset' },
+        { lang: 'LinkService - target test', charset: 'en_US' }
+      ],
+    };
+
+    this.updateMeta(seo);
   }
 
   updateMeta(seoModel: SeoModel) {

@@ -3,7 +3,7 @@ import { PlatformService, WindowService } from '../../libraries/ng-universal/src
 // import { PlatformService, WindowService } from '@trilon/ng-universal';
 import { HttpClient } from '@angular/common/http';
 import { SeoService } from '../../libraries/ng-universal/src/lib/services/seo.service';
-import { SeoModel } from '../../libraries/ng-universal/src/lib/services/seo.interface';
+import { SeoModel, SeoConfig } from '../../libraries/ng-universal/src/lib/services/seo.interface';
 import { DOCUMENT } from '@angular/common';
 
 @Component({
@@ -78,54 +78,62 @@ export class AppComponent implements AfterViewInit {
     console.log('SEOService Demo!');
     console.log(this.seo);
 
-    const title = 'Trilon Ng-Universal Demo';
-    const description = 'SEO - Description';
-    const locale = 'en_US';
-    const url = 'https://trilon.io';
-    const type = 'website';
-    const siteName = 'Trilon Consulting';
-    const keywords = 'trilon, nestjs consulting, nestjs courses, node consulting, angular consulting';
-    const article = {
-      tags: ['seo', 'trilon', 'universal'],
-      section: 'trilon'
+    const config: SeoConfig = {
+      title: 'Trilon Ng-Universal Demo',
+      description: 'SEO - Description',
+      locale: 'en_US',
+      url: 'https://trilon.io',
+      type: 'website',
+      og: {
+        site_name: 'Trilon Consulting',
+        summary_card: 'summary_large_image'
+      },
+      keywords: 'trilon, nestjs consulting, nestjs courses, node consulting, angular consulting',
+      article: {
+        tags: ['seo', 'trilon', 'universal'],
+        section: 'trilon'
+      },
     };
 
-    const seo: SeoModel = {
-      title: '[SeoService] Update my Title!',
-      meta: [
-        { property: 'keywords', content: keywords },
+    this.seo.generateTags(config);
 
-        { property: 'og:url', content: url },
-        { property: 'og:locale', content: locale },
-        { property: 'og:type', content: type },
-        { property: 'og:site_name', content: siteName },
+    // const seo: SeoModel = {
+    //   title: config.title,
+    //   meta: [
+    //     { property: 'keywords', content: config.keywords },
 
-        ...(article && article.tags
-          ? [ ...article.tags.map(tag => ({ name: 'article:tag', content: `${tag}`}) )]
-          : []),
+    //     { property: 'og:url', content: config.url },
+    //     { property: 'og:locale', content: config.locale },
+    //     { property: 'og:type', content: config.type },
+    //     { property: 'og:site_name', content: config.og.site_name },
+    //     { property: 'twitter:card', content: config.og.summary_card },
 
-        ...(article && article.section
-         ? [{ property: 'article:section', content: article.section }]
-         : []),
+    //     ...(config.article && config.article.tags
+    //       ? [ ...config.article.tags.map(tag => ({ name: 'article:tag', content: `${tag}`}) )]
+    //       : []),
 
-        // Title
-        { property: 'og:title', content: `${title}` },
-        { property: 'twitter:title', content: `${title}` },
-        { property: 'twitter:image:alt', content: title
-        },
+    //     ...(config.article && config.article.section
+    //      ? [{ property: 'article:section', content: config.article.section }]
+    //      : []),
 
-        // Description
-        { name: 'description', content: description },
-        { property: 'og:description', content: description },
-        { property: 'twitter:description', content: description },
-      ],
-      link: [
-        { target: 'LinkService - target test', charset: 'LinkService - charset' },
-        { lang: 'LinkService - target test', charset: 'en_US' }
-      ],
-    };
+    //     // Title
+    //     { property: 'og:title', content: `${config.title}` },
+    //     { property: 'twitter:title', content: `${config.title}` },
+    //     { property: 'twitter:image:alt', content: config.title
+    //     },
 
-    this.seo.updateMeta(seo);
+    //     // Description
+    //     { name: 'description', content: config.description },
+    //     { property: 'og:description', content: config.description },
+    //     { property: 'twitter:description', content: config.description },
+    //   ],
+    //   link: [
+    //     { target: 'LinkService - target test', charset: 'LinkService - charset' },
+    //     { lang: 'LinkService - target test', charset: 'en_US' }
+    //   ],
+    // };
+
+    // this.seo.updateMeta(seo);
 
     // this.seo.createBaseMeta();
   }
