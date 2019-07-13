@@ -17,6 +17,7 @@ export function cachePostFilter(req, key) {
     return false;
   }).length >= 0;
 
+  console.log('>>>> cachePostFilter >>>>');
   console.log(req.method);
   console.log(req.url);
   console.log(key);

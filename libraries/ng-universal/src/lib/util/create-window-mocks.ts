@@ -28,6 +28,7 @@ export function createWindowMocks(
   win.scrollTo = noop;
   win.screen = {};
   win.alert = noop;
+  win.requestAnimationFrame = noop;
 
   Object.keys(additionalWindowMocks).forEach(key => {
     win[key] = additionalWindowMocks[key];
@@ -38,14 +39,15 @@ export function createWindowMocks(
   global['navigator'] = {};
   global['CSS'] = null;
   global['Prism'] = null;
-  // global['HTMLElement'] = null;
-  // global['HTMLElement'] = win.HTMLElement;
-  // global['DOMTokenList'] = win.DOMTokenList;
-  // global['Node'] = win.Node;
-  // global['Text'] = win.Text;
-  // global['HTMLCanvasElement'] = win.HTMLCanvasElement;
-  // global['navigator'] = win.navigator;
-  // global['MutationObserver'] = getMockMutationObserver();
+  global['HTMLElement'] = null;
+  global['HTMLElement'] = win.HTMLElement;
+  global['DOMTokenList'] = win.DOMTokenList;
+  global['Node'] = win.Node;
+  global['Text'] = win.Text;
+  global['HTMLCanvasElement'] = win.HTMLCanvasElement;
+  global['navigator'] = win.navigator;
+  global['MutationObserver'] = getMockMutationObserver();
+  global['requestAnimationFrame'] = noop;
 
   Object.keys(globalNodeMocks).forEach(key => {
     global[key] = globalNodeMocks[key];

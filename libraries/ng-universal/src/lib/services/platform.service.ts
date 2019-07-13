@@ -17,9 +17,9 @@ export class PlatformService {
   constructor(
     @Optional() optionalConfig: NgUniversalConfig,
     @Inject(PLATFORM_ID) private platformId: object,
-    @Inject(DOCUMENT) private document: Document,
+    @Inject(DOCUMENT) private _document: Document,
     private windowService: WindowService,
-    private transferState: TransferState
+    private transferState: TransferState,
   ) {
     // this.md = new mobileDetect(navigator.userAgent);
     this.config = optionalConfig;
@@ -31,6 +31,10 @@ export class PlatformService {
         this.windowService.firstSSRRender = false;
       }, 4000);
     }
+  }
+
+  public get document() {
+    return this._document;
   }
 
   public get connection() {
