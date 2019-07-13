@@ -34,8 +34,6 @@ export class SeoService {
       ...seoConfig
     };
 
-    console.log(this.metaUpdate);
-
     const seo: SeoModel = {
       title: this.metaUpdate.title,
       meta: [

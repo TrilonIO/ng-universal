@@ -49,9 +49,6 @@ export function createWindowMocks(
   global['MutationObserver'] = getMockMutationObserver();
   global['requestAnimationFrame'] = noop;
 
-  console.log('INSIDE WINDOW MOCKS');
-  console.log(document);
-
   Object.keys(globalNodeMocks).forEach(key => {
     global[key] = globalNodeMocks[key];
   });

@@ -93,13 +93,13 @@ export class AppComponent implements AfterViewInit {
         summary_card: 'summary_large_image',
       },
       keywords: 'trilon, nestjs consulting, nestjs courses, node consulting, angular consulting',
-      // article: {
-      //   tags: ['seo', 'trilon', 'universal'],
-      //   section: 'trilon'
-      // },
+      article: {
+        tags: ['seo', 'trilon', 'universal'],
+        section: 'trilon'
+      },
       link: [
-        { target: 'LinkService - target test', charset: 'LinkService - charset' },
-        { lang: 'LinkService - target test', charset: 'en_US' }
+        { rel: 'alternate', type: 'application/rss+xml', title: 'RSS', href: 'https://trilon.io' },
+        { rel: 'canonical', href: 'https://trilon.io/blog' }
       ],
     };
 

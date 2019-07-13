@@ -93,11 +93,10 @@ async function bootstrap() {
 
   const html = join(process.cwd(), 'dist/browser', 'index.html');
 
-  createWindowMocks(html)
+  createWindowMocks(html);
 
-  console.log('NEST BOOTSTRAP')
-  console.log('~~~~~~~~~~~~~~~~~~~~')
-  // console.log(window);
+  console.log('NEST BOOTSTRAP');
+  console.log('~~~~~~~~~~~~~~~~~~~~');
 
   const app = await NestFactory.create(ApplicationModule);
   app.setGlobalPrefix('api');
