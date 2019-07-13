@@ -17,7 +17,7 @@ export class SeoService {
   constructor(
     private meta: Meta,
     private title: Title,
-    @Inject(DOCUMENT) private readonly document: Document,
+    @Inject(DOCUMENT) private readonly document: any /* Document */,
     private linkService: LinkService
   ) {}
 

@@ -14,13 +14,13 @@ export class LinkService implements OnDestroy {
   private routeListener: Subscription;
 
   constructor(
-    @Inject(DOCUMENT) private readonly document: Document,
+    @Inject(DOCUMENT) private readonly document: any/* Document */,
     private readonly router: Router,
   ) { }
 
   /**
    * Create or update a link tag
-   * @param  {LinkDefinition} tag
+   * @param  LinkDefinition tag
    */
   public updateTag(tag: LinkDefinition): void {
     const selector = this._parseSelector(tag);
@@ -36,7 +36,6 @@ export class LinkService implements OnDestroy {
 
   /**
    * Remove a link tag from DOM
-   * @param  tag
    */
   public removeTag(tag: LinkDefinition): void {
     const selector = this._parseSelector(tag);
@@ -49,8 +48,7 @@ export class LinkService implements OnDestroy {
 
   /**
    * Get link tag
-   * @param  tag
-   * @return {HTMLLinkElement}
+   * @return HTMLLinkElement
    */
   public getTag(tag: LinkDefinition): HTMLLinkElement {
     const selector = this._parseSelector(tag);
@@ -60,7 +58,7 @@ export class LinkService implements OnDestroy {
 
   /**
    * Get all link tags
-   * @return {NodeListOf<HTMLLinkElement>}
+   * @return NodeListOf<HTMLLinkElement>
    */
   public getTags(): NodeListOf<HTMLLinkElement> {
     return this.document.head.querySelectorAll('link');
@@ -68,8 +66,7 @@ export class LinkService implements OnDestroy {
 
   /**
    * Parse tag to create a selector
-   * @param  tag
-   * @return {string} selector to use in querySelector
+   * @return string} selector to use in querySelector
    */
   private _parseSelector(tag: LinkDefinition): string {
     const attr: string = tag.rel ? 'rel' : 'hreflang';
