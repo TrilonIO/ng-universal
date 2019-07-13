@@ -127,7 +127,7 @@ export class AppComponent implements AfterViewInit {
 
     this.seo.updateMeta(seo);
 
-    this.seo.createBaseMeta();
+    // this.seo.createBaseMeta();
   }
 
   requestAnimationFrameTest() {

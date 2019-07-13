@@ -10,6 +10,9 @@ import { LinkDefinition } from './link-definition.type';
   providedIn: 'root'
 })
 export class SeoService {
+
+  private baseMeta;
+
   constructor(
     private meta: Meta,
     private title: Title,
@@ -17,8 +20,10 @@ export class SeoService {
     private linkService: LinkService
   ) {}
 
-  createBaseMeta() {
-
+  createBaseMeta(meta: SeoModel) {
+    return this.baseMeta = {
+      ...meta
+    };
   }
 
   updateMeta(seoModel: SeoModel) {
@@ -65,7 +70,7 @@ export class SeoService {
           this.title.setTitle(val);
           return;
         case 'description':
-          this.createMetaTag('description', { content: val });
+          this.updateMetaTag('description', { content: val });
           return;
         default:
           return;
@@ -73,9 +78,7 @@ export class SeoService {
     });
   }
 
-  private createMetaTag(name, metaDefinition: MetaDefinition) {
-    console.log('createMetaTag')
-    console.log(metaDefinition);
+  private updateMetaTag(name, metaDefinition: MetaDefinition) {
     const tag: MetaDefinition = {
       name,
       content: metaDefinition.content
