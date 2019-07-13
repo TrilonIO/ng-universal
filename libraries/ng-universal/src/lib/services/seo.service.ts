@@ -11,7 +11,8 @@ import { LinkDefinition } from './link-definition.type';
 })
 export class SeoService {
 
-  private baseMeta;
+  private baseMeta: SeoConfig;
+  private metaUpdate: SeoConfig;
 
   constructor(
     private meta: Meta,
@@ -20,61 +21,81 @@ export class SeoService {
     private linkService: LinkService
   ) {}
 
-  createBaseMeta(meta: SeoModel) {
+  initializeBaseMeta(baseMeta: SeoConfig) {
     return this.baseMeta = {
-      ...meta
+      ...baseMeta
     };
   }
 
-  generateTags(seoConfig: SeoConfig) {
-    console.log('generateTags');
-    console.log(seoConfig);
+  update(seoConfig?: SeoConfig) {
+
+    this.metaUpdate = {
+      ...this.baseMeta,
+      ...seoConfig
+    };
+
+    console.log(this.metaUpdate);
 
     const seo: SeoModel = {
-      title: seoConfig.title,
+      title: this.metaUpdate.title,
       meta: [
         // Essentials
-        { property: 'keywords', content: seoConfig.keywords },
-        { property: 'og:url', content: seoConfig.url },
-        { property: 'og:locale', content: seoConfig.locale },
-        { property: 'og:type', content: seoConfig.type },
-        { property: 'og:site_name', content: seoConfig.og.site_name },
-        { property: 'twitter:card', content: seoConfig.og.summary_card },
+        { property: 'keywords', content: this.metaUpdate.keywords },
+
+        // Defaults
+        { property: 'og:url', content: this.metaUpdate.url },
+        { property: 'og:locale', content: this.metaUpdate.locale || 'en_US' },
+        { property: 'og:type', content: this.metaUpdate.type || 'website' },
+        { property: 'twitter:card', content: this.metaUpdate.twitter.summary_card || 'summary_large_image'},
 
         // Title
-        { property: 'og:title', content: `${seoConfig.title}` },
-        { property: 'twitter:title', content: `${seoConfig.title}` },
-        { property: 'twitter:image:alt', content: seoConfig.title
-        },
+        { property: 'og:title', content: this.metaUpdate.title },
+        { property: 'twitter:title', content: this.metaUpdate.title },
+        { property: 'twitter:image:alt', content: this.metaUpdate.title },
 
         // Description
-        { name: 'description', content: seoConfig.description },
-        { property: 'og:description', content: seoConfig.description },
-        { property: 'twitter:description', content: seoConfig.description },
+        { name: 'description', content: this.metaUpdate.description },
+        { property: 'og:description', content: this.metaUpdate.description },
+        { property: 'twitter:description', content: this.metaUpdate.description },
 
-        // Non essentials
-        ...(seoConfig.article && seoConfig.article.tags
-          ? [ ...seoConfig.article.tags.map(tag => ({ name: 'article:tag', content: `${tag}`}) )]
+        ...(
+          this.metaUpdate.og
+          ? [
+            ...(this.metaUpdate.og.site_name ? [{ property: 'og:site_name', content: this.metaUpdate.og.site_name }] : []),
+            ...(this.metaUpdate.og.image_url ? [{ property: 'og:image', content: this.metaUpdate.og.image_url }] : []),
+            { property: 'og:image:width', content: this.metaUpdate.og.image_width || '1200' },
+            { property: 'og:image:height', content: this.metaUpdate.og.image_height || '630'}
+          ]
+          : []
+        ),
+
+        ...(
+          this.metaUpdate.twitter
+          ? [
+            ...(this.metaUpdate.twitter.image_url ? [{ property: 'twitter:image', content: this.metaUpdate.twitter.image_url }] : []),
+            ...(this.metaUpdate.twitter.site ? [{ property: 'twitter:site', content: this.metaUpdate.twitter.site }] : []),
+            ...(this.metaUpdate.twitter.creator ? [{ property: 'twitter:creator', content: this.metaUpdate.twitter.creator }] : []),
+            ...(this.metaUpdate.twitter.image_alt ? [{ property: 'twitter:image:alt', content: this.metaUpdate.twitter.image_alt }] : []),
+          ]
+          : []
+        ),
+
+        // Blog-Related
+        ...(this.metaUpdate.article && this.metaUpdate.article.tags
+          ? [ ...this.metaUpdate.article.tags.map(tag => ({ name: 'article:tag', content: `${tag}`}) )]
           : []),
 
-        ...(seoConfig.article && seoConfig.article.section
-         ? [{ property: 'article:section', content: seoConfig.article.section }]
+        ...(this.metaUpdate.article && this.metaUpdate.article.section
+         ? [{ property: 'article:section', content: this.metaUpdate.article.section }]
          : []),
       ],
-      link: (seoConfig.link ? seoConfig.link : null),
-        // ?
-        // link: [
-        //   { target: 'LinkService - target test', charset: 'LinkService - charset' },
-        //   { lang: 'LinkService - target test', charset: 'en_US' }
-        // ],
+      link: (this.metaUpdate.link ? this.metaUpdate.link : null)
     };
 
     this.updateMeta(seo);
   }
 
   updateMeta(seoModel: SeoModel) {
-    console.log(seoModel);
-
     Object.keys(seoModel).forEach(key => {
       const metaVal: any = seoModel[key];
 
@@ -84,15 +105,12 @@ export class SeoService {
           return;
         case 'meta':
           metaVal.map((meta: MetaDefinition) => {
-            console.log(meta);
             this.meta.updateTag(meta);
             return meta;
           });
           return;
         case 'link':
           metaVal.map((link: LinkDefinition) => {
-            console.log('>>> link');
-            console.log(link);
             this.linkService.updateTag(link);
             return link;
           });
@@ -102,61 +120,4 @@ export class SeoService {
       }
     });
   }
-
-  fastMeta(seoModel: SeoModel) {
-    // this.meta.addTags
-    console.log(seoModel);
-
-    Object.keys(seoModel).forEach(key => {
-      const val = seoModel[key];
-      console.log(key, val);
-
-      switch (key) {
-        case 'title':
-          this.title.setTitle(val);
-          return;
-        case 'description':
-          this.updateMetaTag('description', { content: val });
-          return;
-        default:
-          return;
-      }
-    });
-  }
-
-  private updateMetaTag(name, metaDefinition: MetaDefinition) {
-    const tag: MetaDefinition = {
-      name,
-      content: metaDefinition.content
-    };
-    this.meta.updateTag(tag, 'TESTING');
-  }
 }
-
-// <title data-n-head="true">Trilon - Next-level Application Consulting</title>
-// <meta data-n-head="true" charset="utf-8">
-// <meta data-n-head="true" name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
-// <meta data-n-head="true" name="HandheldFriendly" content="true">
-// <meta data-n-head="true" data-hid="keywords" content="nestjs consulting, nest consulting, nestjs workshop, nestjs courses, node consulting, angular consulting">
-// <meta data-n-head="true" data-hid="msapplication-TileColor" name="msapplication-TileColor" content="#da532c">
-// <meta data-n-head="true" data-hid="theme-color" name="theme-color" content="#ffffff">
-// <meta data-n-head="true" data-hid="og:url" property="og:url" content="https://trilon.io/">
-// <meta data-n-head="true" data-hid="og:title" property="og:title" content="Consulting & Training from open-source fanatics - Trilon">
-// <meta data-n-head="true" data-hid="og:description" property="og:description" content="Next-level Application Consulting, Development, and Workshops from key open-source contributors.">
-// <meta data-n-head="true" data-hid="og:image" property="og:image" content="https://trilon.io/meta/og-image.png">
-// <meta data-n-head="true" data-hid="og:image:secure_url" property="og:image:secure_url" content="https://trilon.io/meta/og-image.png">
-// <meta data-n-head="true" data-hid="og:image:width" property="og:image:width" content="1200">
-// <meta data-n-head="true" data-hid="og:image:height" property="og:image:height" content="630">
-// <meta data-n-head="true" data-hid="twitter:card" property="twitter:card" content="summary_large_image">
-// <meta data-n-head="true" data-hid="twitter:title" property="twitter:title" content="Consulting & Training from open-source fanatics - Trilon">
-// <meta data-n-head="true" data-hid="twitter:site" property="twitter:site" content="@trilon_io">
-// <meta data-n-head="true" data-hid="twitter:creator" property="twitter:creator" content="@trilon_io">
-// <meta data-n-head="true" data-hid="twitter:description" property="twitter:description" content="Next-level Application Consulting, Development, and Workshops from key open-source contributors.">
-// <meta data-n-head="true" data-hid="twitter:image" property="twitter:image" content="https://trilon.io/meta/twitter-image.png">
-// <meta data-n-head="true" data-hid="twitter:image:alt" property="twitter:image:alt" content="Trilon, Inc. logo">
-// <meta data-n-head="true" data-hid="mobile-web-app-capable" name="mobile-web-app-capable" content="yes">
-// <meta data-n-head="true" data-hid="apple-mobile-web-app-title" name="apple-mobile-web-app-title" content="trilonio">
-// <meta data-n-head="true" data-hid="author" name="author" content="Trilon">
-// <meta data-n-head="true" data-hid="og:type" name="og:type" property="og:type" content="website">
-// <meta data-n-head="true" data-hid="og:site_name" name="og:site_name" property="og:site_name" content="trilonio">
-// <meta data-n-head="true" data-hid="description" name="description" content="Next-level consulting from NestJS and Angular Universal core team members. We give teams the push they need to truly succeed in today's ever-changing world.">

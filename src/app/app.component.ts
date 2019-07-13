@@ -86,20 +86,31 @@ export class AppComponent implements AfterViewInit {
       type: 'website',
       og: {
         site_name: 'Trilon Consulting',
-        summary_card: 'summary_large_image'
+        image_url: 'https://trilon.io/meta/og-image.png'
+      },
+      twitter: {
+        image_url: 'https://trilon.io/meta/twitter-image.png',
+        summary_card: 'summary_large_image',
       },
       keywords: 'trilon, nestjs consulting, nestjs courses, node consulting, angular consulting',
-      article: {
-        tags: ['seo', 'trilon', 'universal'],
-        section: 'trilon'
-      },
+      // article: {
+      //   tags: ['seo', 'trilon', 'universal'],
+      //   section: 'trilon'
+      // },
       link: [
         { target: 'LinkService - target test', charset: 'LinkService - charset' },
         { lang: 'LinkService - target test', charset: 'en_US' }
       ],
     };
 
-    this.seo.generateTags(config);
+    this.seo.initializeBaseMeta(config);
+
+    // Update whatever you need, later on
+    this.seo.update({
+      title: 'UPDATE Title ONLY :: New Title'
+    });
+
+    // this.seo.generateTags(config);
 
     // const seo: SeoModel = {
     //   title: config.title,

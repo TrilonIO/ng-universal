@@ -7,21 +7,58 @@ export interface MetaTag {
 }
 
 
+// { hid: 'title', name: 'title', content: 'Trilon.io - Next level Application Consulting' },
+// { hid: 'description', name: 'description', content: 'Trilon.io | Consulting' },
+// { hid: 'keywords', content: 'nestjs consulting, nest consulting, nestjs workshop, nestjs courses, node consulting, angular consulting' },
+// { hid: 'msapplication-TileColor', name: 'msapplication-TileColor', content: '#da532c' },
+// { hid: 'theme-color', name: 'theme-color', content: '#ffffff' },
+
+// Facebook & Twitter cards
+// { hid: 'og:url', property: 'og:url', content: 'https://trilon.io/' },
+// { hid: 'og:title', property: 'og:title', content: 'Consulting & Training from open-source fanatics - Trilon' },
+// { hid: 'og:description', property: 'og:description', content: 'Next-level Application Consulting, Development, and Workshops from key open-source contributors.' },
+// { hid: 'og:image', property: 'og:image', content: 'https://trilon.io/meta/og-image.png' },
+// { hid: 'og:image:width', property: 'og:image:width', content: '1200' },
+// { hid: 'og:image:height', property: 'og:image:height', content: '630' },
+// { hid: 'twitter:card', property: 'twitter:card', content: 'summary_large_image' },
+// { hid: 'twitter:title', property: 'twitter:title', content: 'Consulting & Training from open-source fanatics - Trilon' },
+// { hid: 'twitter:site', property: 'twitter:site', content: '@trilon_io' },
+// { hid: 'twitter:creator', property: 'twitter:creator', content: '@trilon_io' },
+// { hid: 'twitter:description', property: 'twitter:description', content: 'Next-level Application Consulting, Development, and Workshops from key open-source contributors.' },
+// { hid: 'twitter:image', property: 'twitter:image', content: 'https://trilon.io/meta/twitter-image.png' },
+// { hid: 'twitter:image:alt', property: 'twitter:image:alt', content: 'Trilon, Inc. logo' }
+
+
+
 export interface SeoConfig {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   locale?: string;
-  url: string;
+  url?: string;
   type?: string;
+
   og?: {
-      site_name?: string;
-      summary_card?: string;
+    title?: string;
+    site_name?: string;
+    image_url?: string;
+    image_width?: string;
+    image_height?: string;
   };
+  twitter?: {
+    title?: string;
+    image_url?: string;
+    summary_card?: string;
+    site?: string;
+    creator?: string;
+    description?: string;
+    image_alt?: string;
+  };
+
   keywords?: string;
   article?: {
-      tags?: string[];
-      section?: string;
-  };
+    tags?: string[];
+    section?: string;
+};
   link?: LinkDefinition[];
 }
 export interface SeoModel {
@@ -56,24 +93,3 @@ export interface OgModel {
 
 }
 
-
-// { hid: 'title', name: 'title', content: 'Trilon.io - Next level Application Consulting' },
-// { hid: 'description', name: 'description', content: 'Trilon.io | Consulting' },
-// { hid: 'keywords', content: 'nestjs consulting, nest consulting, nestjs workshop, nestjs courses, node consulting, angular consulting' },
-// { hid: 'msapplication-TileColor', name: 'msapplication-TileColor', content: '#da532c' },
-// { hid: 'theme-color', name: 'theme-color', content: '#ffffff' },
-
-// Facebook & Twitter cards
-// { hid: 'og:url', property: 'og:url', content: 'https://trilon.io/' },
-// { hid: 'og:title', property: 'og:title', content: 'Consulting & Training from open-source fanatics - Trilon' },
-// { hid: 'og:description', property: 'og:description', content: 'Next-level Application Consulting, Development, and Workshops from key open-source contributors.' },
-// { hid: 'og:image', property: 'og:image', content: 'https://trilon.io/meta/og-image.png' },
-// { hid: 'og:image:width', property: 'og:image:width', content: '1200' },
-// { hid: 'og:image:height', property: 'og:image:height', content: '630' },
-// { hid: 'twitter:card', property: 'twitter:card', content: 'summary_large_image' },
-// { hid: 'twitter:title', property: 'twitter:title', content: 'Consulting & Training from open-source fanatics - Trilon' },
-// { hid: 'twitter:site', property: 'twitter:site', content: '@trilon_io' },
-// { hid: 'twitter:creator', property: 'twitter:creator', content: '@trilon_io' },
-// { hid: 'twitter:description', property: 'twitter:description', content: 'Next-level Application Consulting, Development, and Workshops from key open-source contributors.' },
-// { hid: 'twitter:image', property: 'twitter:image', content: 'https://trilon.io/meta/twitter-image.png' },
-// { hid: 'twitter:image:alt', property: 'twitter:image:alt', content: 'Trilon, Inc. logo' }
