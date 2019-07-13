@@ -1,4 +1,4 @@
-# Angular Universal Schematics & Helpers - Trilon
+# Angular Universal Schematics & Utility Helpers - Trilon
 
 [![npm](https://img.shields.io/npm/v/@trilon/ng-universal.svg?label=npm%20version&color=5b1096&style=for-the-badge)](https://www.npmjs.com/@trilon/ng-universal)
 [![NPM Downloads](https://img.shields.io/npm/dt/@trilon/ng-universal.svg?color=b31ae7&style=for-the-badge)](https://www.npmjs.com/@trilon/ng-universal)
@@ -28,7 +28,9 @@ $ npm i -S @trilon/ng-universal
 ## Modules Available
 
 - [NgUniversalModule](#nguniversalmodule-setup)
-  - Helpers / Utilities
+  - [Helpers / Utilities](#angular-universal-helpers)
+    - SEO (Meta & Link) Generator / Helper
+    - PlatformService 
   - [createWindowMocks](#createwindowmocks)
 - [TransferHttpCacheModule](#transferhttpcachemodule-setup)
 
@@ -55,6 +57,76 @@ export class AppModule { }
 # Angular Universal Helpers 
 
 Now that the Library is setup, you have a few great helpers to make Angular Universal a bit simpler and easier to work with!
+
+## Angular SEO - Meta & Link Generator
+
+Handling Angular SEO and dynamic Meta & Link generation can be quite the task! Introducing easy-to-use helpers that allow you create a BASE Meta setup for your Application, and easily update the portions needed when visiting different pages/sections of your Application.
+
+#### Setup a Base SEO Configuration
+
+At the Root of your application utilize the `SeoService` to initialize a base setup for your Meta/Link/SEO needs. This way you will only have to update _fragments_ of your Meta at different Routes/Components when needed, while this base structure will always be present. 
+
+> Note: You can also reinitialize this at any part of your Application if you need a fundamentally different Base SEO setup. (ie: /blog/ sections for example, that will always need author|article setup)
+
+```ts
+import { SeoService } from '@trilon/ng-universal';
+
+@Component({
+  selector: 'app-root'
+})
+export class AppComponent {
+  constructor(private seo: SeoService) {
+    const config: SeoConfig = {
+      title: 'Trilon Ng-Universal Demo',
+      description: 'SEO - Description',
+      locale: 'en_US',
+      url: 'https://trilon.io',
+      type: 'website',
+      msapplicationTileColor: '#000',
+      themeColor: '#fff',
+      og: {
+        site_name: 'Trilon Consulting',
+        image_url: 'https://trilon.io/meta/og-image.png'
+      },
+      twitter: {
+        image_url: 'https://trilon.io/meta/twitter-image.png',
+        summary_card: 'summary_large_image',
+      },
+      keywords: 'trilon, nestjs consulting, nestjs courses, node consulting, angular consulting',
+      article: {
+        tags: ['seo', 'trilon', 'universal'],
+        section: 'trilon'
+      },
+      link: [
+        { rel: 'alternate', type: 'application/rss+xml', title: 'RSS', href: 'https://trilon.io' },
+        { rel: 'canonical', href: 'https://trilon.io/blog' }
+      ],
+    };
+
+    // initialize your base Meta setup
+    // (this can be done again at any point if you need to replace it entirely)
+    this.seo.initializeBaseMeta(config);
+  }
+}
+```
+
+Now let's say we've traveled to a different Route, and we want that Component to update a few important pieces of the SEO, without having to re-do _everything_.
+
+```ts
+export class TrilonBlogComponent {
+  constructor(private seo: SeoService) {
+    this.seo.update({
+      title: 'Blog - Trilon.io',
+      description: 'Learn more about NestJS, Angular and Fullstack Development at the Trilon Blog!'
+      url: 'https://trilon.io/blog'
+    })
+  }
+}
+```
+
+This will update just the necessary portions added above, while leaving everything else intact!
+
+---
 
 ## PlatformService
 
