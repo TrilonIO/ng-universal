@@ -35,8 +35,13 @@ $ npm i -S @trilon/ng-universal
   - [Helpers / Utilities](#angular-universal-helpers)
     - SEO (Meta & Link) Generator / Helper
     - PlatformService 
-  - [createWindowMocks](#createwindowmocks)
 - [TransferHttpCacheModule](#transferhttpcachemodule-setup)
+
+## Universal Node SSR Global Mocks
+
+> Note: This is a separate package, as it should only be used for your Node server as it includes Domino
+
+- [createGlobalMocks](#createglobalmocks)
 
 ---
 
@@ -171,30 +176,6 @@ Take as an example a Twitter Feed section that's connected to 3rd party Componen
 </ng-container>
 ```
 
-## createGlobalMocks
-
-> Note: Breaking changes: Renamed to `createGlobalMocks`. In `@trilon/ng-universal` v2+ there was a breaking change, and this method has now been introduced as its _own_ npm package to avoid domino being bundled in client angular bundles.
-
-Mock Window & Document in Node to prevent "window undefined" Node errors.  Remember these globals don't exist in the Node platform, so it's important to Mock them and fill them with your app skeleton html (utilizing Domino), otherwise 3rd party libraries (and even your own code), can cause errors during a server-side render.
-
-In your `server.ts` file, grab your `template` (html) and pass it into the createGlobalMocks utility to populate your Node globals for window|document.
-
-```ts
-import { createGlobalMocks } from '@trilon/universal-ssr-mocks';
-
-// Make sure you grab wherever your index.html is, we want to use that html as a -base- for Domino
-const template = readFileSync(join(DIST_FOLDER, 'Your_CLI_Project_Name', 'index.html')).toString();
-createGlobalMocks(template);
-```
-
-You can additionally pass in more globals for window or document incase you need to patch/mock other things such as `$` from jQuery / etc.
-
-```ts
-createWindowMocks(template, /* additional window mocks*/ {
-  $: {},
-  someOtherWindowProp: {}
-})
-```
 
 More Documentation & Utilies Coming soon...
 
@@ -234,6 +215,39 @@ export function cachePostFilter(req, key) {
   ]
 })
 export class AppModule { }
+```
+
+---
+
+## createGlobalMocks
+
+> Note: Breaking changes: Renamed to `createGlobalMocks`. In `@trilon/ng-universal` v2+ there was a breaking change, and this method has now been introduced as its _own_ npm package to avoid domino being bundled in client angular bundles.
+
+#### Installation:
+
+```bash
+$ npm i --S @trilon/universal-ssr-mocks
+```
+
+Mock Window & Document in Node to prevent "window undefined" Node errors.  Remember these globals don't exist in the Node platform, so it's important to Mock them and fill them with your app skeleton html (utilizing Domino), otherwise 3rd party libraries (and even your own code), can cause errors during a server-side render.
+
+In your `server.ts` file, grab your `template` (html) and pass it into the createGlobalMocks utility to populate your Node globals for window|document.
+
+```ts
+import { createGlobalMocks } from '@trilon/universal-ssr-mocks';
+
+// Make sure you grab wherever your index.html is, we want to use that html as a -base- for Domino
+const template = readFileSync(join(DIST_FOLDER, 'Your_CLI_Project_Name', 'index.html')).toString();
+createGlobalMocks(template);
+```
+
+You can additionally pass in more globals for window or document incase you need to patch/mock other things such as `$` from jQuery / etc.
+
+```ts
+createGlobalMocks(template, /* additional window mocks*/ {
+  $: {},
+  someOtherWindowProp: {}
+})
 ```
 
 
