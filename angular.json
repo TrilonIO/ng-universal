@@ -187,6 +187,41 @@
           }
         }
       }
+    },
+    "universal-ssr-mocks": {
+      "projectType": "library",
+      "root": "libraries/universal-ssr-mocks",
+      "sourceRoot": "libraries/universal-ssr-mocks/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "libraries/universal-ssr-mocks/tsconfig.lib.json",
+            "project": "libraries/universal-ssr-mocks/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "libraries/universal-ssr-mocks/src/test.ts",
+            "tsConfig": "libraries/universal-ssr-mocks/tsconfig.spec.json",
+            "karmaConfig": "libraries/universal-ssr-mocks/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libraries/universal-ssr-mocks/tsconfig.lib.json",
+              "libraries/universal-ssr-mocks/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "helpers-demo"

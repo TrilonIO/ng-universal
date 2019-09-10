@@ -1,0 +1,7 @@
+{
+  "name": "@trilon/universal-ssr-mocks",
+  "version": "1.0.0",
+  "peerDependencies": {
+    "domino": "^2.1.3"
+  }
+}

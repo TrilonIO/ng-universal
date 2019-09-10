@@ -13,4 +13,3 @@ export * from './lib/services/seo.service';
 export * from './lib/services/link.service';
 
 export * from './lib/util/bootstrap.helpers';
-export { createWindowMocks } from './lib/util/create-window-mocks';

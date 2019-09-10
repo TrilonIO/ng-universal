@@ -5,7 +5,7 @@ export interface IMock {
 /*
  * Window | Document | Global mocking
  */
-export function createWindowMocks(
+export function createGlobalMocks(
   template: string,
   additionalWindowMocks: IMock = {},
   globalNodeMocks: IMock = {}
@@ -14,10 +14,10 @@ export function createWindowMocks(
     console.error(`
       A template of your index.html file must be provided.
       Example:
-        import { createWindowMocks } from '@trilon/ng-universal';
+        import { v } from '@trilon/universal-ssr-mocks';
 
         const template = readFileSync(join(DIST_FOLDER, 'Your_CLI_Project_Name', 'index.html')).toString();
-        createWindowMocks(template);
+        createGlobalMocks(template);
     `);
     return;
   }

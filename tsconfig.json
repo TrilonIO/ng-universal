@@ -27,6 +27,12 @@
       ],
       "ng-universal/*": [
         "dist/ng-universal/*"
+      ],
+      "universal-ssr-mocks": [
+        "dist/universal-ssr-mocks"
+      ],
+      "universal-ssr-mocks/*": [
+        "dist/universal-ssr-mocks/*"
       ]
     }
   }
