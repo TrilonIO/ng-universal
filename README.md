@@ -1,7 +1,7 @@
 # Angular Universal Schematics & Utility Helpers - Trilon
 
 [![npm](https://img.shields.io/npm/v/@trilon/ng-universal.svg?label=npm%20version&color=5b1096&style=for-the-badge)](https://www.npmjs.com/@trilon/ng-universal)
-[![Minzipped Size](https://img.shields.io/bundlephobia/minzip/@trilon/ng-universal?color=b31ae7&style=for-the-badge)](https://bundlephobia.com/result?p=@trilon/ng-universal@1.1.0)
+[![Minzipped Size](https://img.shields.io/bundlephobia/minzip/@trilon/ng-universal?color=b31ae7&style=for-the-badge)](https://bundlephobia.com/result?p=@trilon/ng-universal@2.0.1)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge&color=e51384)](/LICENSE) 
 
 
