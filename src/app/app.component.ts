@@ -46,7 +46,6 @@ export class AppComponent implements AfterViewInit {
     this.demoHttpGet();
 
     this.demoSEOService();
-
   }
 
   ngAfterViewInit() {
@@ -112,47 +111,19 @@ export class AppComponent implements AfterViewInit {
       title: 'UPDATE Title ONLY :: New Title'
     });
 
-    // this.seo.generateTags(config);
-
-    // const seo: SeoModel = {
-    //   title: config.title,
-    //   meta: [
-    //     { property: 'keywords', content: config.keywords },
-
-    //     { property: 'og:url', content: config.url },
-    //     { property: 'og:locale', content: config.locale },
-    //     { property: 'og:type', content: config.type },
-    //     { property: 'og:site_name', content: config.og.site_name },
-    //     { property: 'twitter:card', content: config.og.summary_card },
-
-    //     ...(config.article && config.article.tags
-    //       ? [ ...config.article.tags.map(tag => ({ name: 'article:tag', content: `${tag}`}) )]
-    //       : []),
-
-    //     ...(config.article && config.article.section
-    //      ? [{ property: 'article:section', content: config.article.section }]
-    //      : []),
-
-    //     // Title
-    //     { property: 'og:title', content: `${config.title}` },
-    //     { property: 'twitter:title', content: `${config.title}` },
-    //     { property: 'twitter:image:alt', content: config.title
-    //     },
-
-    //     // Description
-    //     { name: 'description', content: config.description },
-    //     { property: 'og:description', content: config.description },
-    //     { property: 'twitter:description', content: config.description },
-    //   ],
-    //   link: [
-    //     { target: 'LinkService - target test', charset: 'LinkService - charset' },
-    //     { lang: 'LinkService - target test', charset: 'en_US' }
-    //   ],
-    // };
-
-    // this.seo.updateMeta(seo);
-
-    // this.seo.createBaseMeta();
+    this.seo.updateStructuredData(
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "url": "http://www.trilon.io",
+        "name": "Fullstack Consulting",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+1-401-555-1212",
+          "contactType": "Customer service"
+        }
+      }
+    );
   }
 
   requestAnimationFrameTest() {

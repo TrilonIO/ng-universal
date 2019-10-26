@@ -1,6 +1,13 @@
 # Changelog
 
-### 2.0
+### 2.1.0
+
+#### Features:
+
+- New SeoService method added: `updateStructuredData(jsonData)`.
+  - Ability to create/update `ld+json` structured data / rich snippets.
+
+### 2.0.0
 
 #### Breaking Changes:
 

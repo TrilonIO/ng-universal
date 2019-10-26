@@ -127,4 +127,22 @@ export class SeoService {
       }
     });
   }
+
+  updateStructuredData(data) {
+    const exists = this.document.querySelector('#ld-json-script');
+    if (exists) {
+      exists.remove();
+    }
+
+    const json = data
+    ? JSON.stringify(data).replace(/<\/script>/g, '<\\/script>')
+    : '';
+
+    const scriptElem = <HTMLScriptElement> this.document.createElement('script');
+    scriptElem.type = 'application/ld+json';
+    scriptElem.id = 'ld-json-script';
+    scriptElem.innerHTML = json;
+
+    this.document.head.appendChild(scriptElem);
+  }
 }

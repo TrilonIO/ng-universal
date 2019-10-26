@@ -30,6 +30,8 @@ $ npm i -S @trilon/ng-universal
 - [NgUniversalModule](#nguniversalmodule-setup)
   - [Helpers / Utilities](#angular-universal-helpers)
     - SEO (Meta & Link) Generator / Helper
+    - Structured Data (ld+json) / Rich Snippets
+    - SeoService Methods
     - PlatformService 
   - [createWindowMocks](#createwindowmocks)
 - [TransferHttpCacheModule](#transferhttpcachemodule-setup)
@@ -129,6 +131,38 @@ export class TrilonBlogComponent {
 ```
 
 This will update just the necessary portions added above, while leaving everything else intact!
+
+## Angular Structured Data / ld+json / Rich Snippets
+
+```ts
+export class TrilonBlogComponent {
+  constructor(private seo: SeoService) {
+    this.seo.updateStructuredData(
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "url": "http://www.trilon.io",
+        "name": "Fullstack Consulting",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "website": "https://trilon.io",
+          "contactType": "Consulting"
+        }
+      }
+    )
+  }
+}
+```
+
+
+#### SeoService Methods:
+
+- `updateStructuredData(json)`
+  - Set or Update your `ld+json` script structured data / rich snippets
+- `initializeBaseMeta(SeoConfig)`
+  - Set your initial Meta setup for your entire application
+- `SeoService.update(SeoConfig)`
+  - Update (even partially) the SEO/Meta
 
 ---
 

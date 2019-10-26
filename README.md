@@ -34,6 +34,8 @@ $ npm i -S @trilon/ng-universal
 - [NgUniversalModule](#nguniversalmodule-setup)
   - [Helpers / Utilities](#angular-universal-helpers)
     - SEO (Meta & Link) Generator / Helper
+    - Structured Data (ld+json) / Rich Snippets
+    - SeoService Methods
     - PlatformService 
 - [TransferHttpCacheModule](#transferhttpcachemodule-setup)
 
@@ -73,7 +75,7 @@ Handling Angular SEO and dynamic Meta & Link generation can be quite the task! I
 
 #### Setup a Base SEO Configuration
 
-At the Root of your application utilize the `SeoService` to initialize a base setup for your Meta/Link/SEO needs. This way you will only have to update _fragments_ of your Meta at different Routes/Components when needed, while this base structure will always be present. 
+At the Root of your application utilize the `SeoService` to initialize a base setup for your Meta/Link/SEO needs. This way you will only have to update _fragments_ of your Meta at different Routes/Components when needed, while this base structure will always be present.
 
 > Note: You can also reinitialize this at any part of your Application if you need a fundamentally different Base SEO setup. (ie: /blog/ sections for example, that will always need author|article setup)
 
@@ -136,6 +138,38 @@ export class TrilonBlogComponent {
   }
 }
 ```
+
+## Angular Structured Data / ld+json / Rich Snippets
+
+```ts
+export class TrilonBlogComponent {
+  constructor(private seo: SeoService) {
+    this.seo.updateStructuredData(
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "url": "http://www.trilon.io",
+        "name": "Fullstack Consulting",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "website": "https://trilon.io",
+          "contactType": "Consulting"
+        }
+      }
+    )
+  }
+}
+```
+
+
+#### SeoService Methods:
+
+- `updateStructuredData(json)`
+  - Set or Update your `ld+json` script structured data / rich snippets
+- `initializeBaseMeta(SeoConfig)`
+  - Set your initial Meta setup for your entire application
+- `SeoService.update(SeoConfig)`
+  - Update (even partially) the SEO/Meta
 
 This will update just the necessary portions added above, while leaving everything else intact!
 
