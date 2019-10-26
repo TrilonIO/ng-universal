@@ -3,7 +3,6 @@ import { isPlatformBrowser, isPlatformServer, DOCUMENT } from '@angular/common';
 import { TransferState, makeStateKey } from '@angular/platform-browser';
 import { WindowService } from './window.service';
 import { NgUniversalConfig } from '../ng-universal.config';
-// import * as mobileDetect from 'mobile-detect';
 
 // @dynamic
 @Injectable({
@@ -11,17 +10,15 @@ import { NgUniversalConfig } from '../ng-universal.config';
 })
 export class PlatformService {
 
-  // public md: MobileDetect;
   private config: NgUniversalConfig;
 
   constructor(
     @Optional() optionalConfig: NgUniversalConfig,
     @Inject(PLATFORM_ID) private platformId: object,
-    @Inject(DOCUMENT) private _document: Document,
+    @Inject(DOCUMENT) private doc: Document,
     private windowService: WindowService,
     private transferState: TransferState,
   ) {
-    // this.md = new mobileDetect(navigator.userAgent);
     this.config = optionalConfig;
 
     if (this.isBrowser) {
@@ -34,7 +31,7 @@ export class PlatformService {
   }
 
   public get document() {
-    return this._document;
+    return this.doc;
   }
 
   public get connection() {
@@ -60,14 +57,6 @@ export class PlatformService {
       this.transferState.remove(makeStateKey((requestMethod === 'GET' ? 'G.' : 'P.') + url));
     }
   }
-
-  // public get isMobile(): boolean {
-  //   return !!this.md.phone() && !!this.md.mobile();
-  // }
-
-  // public get isTablet(): boolean {
-  //   return !!this.md.tablet();
-  // }
 
   public get isFirstRenderAfterSSR() {
     return this.isBrowser && this.windowService.firstSSRRender;
