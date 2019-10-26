@@ -11,7 +11,7 @@
     "pack:ng-universal": "cd dist/ng-universal && npm pack",
     "pack:universal-ssr-mocks": "cd dist/universal-ssr-mocks && npm pack",
     "pack:all": "npm run pack:ng-universal && npm run pack:universal-ssr-mocks",
-    "publish:ng-universal": "npm publish ./dist/ng-universal/trilon-ng-universal-2.0.1.tgz --access=public",
+    "publish:ng-universal": "npm publish ./dist/ng-universal/trilon-ng-universal-2.1.0.tgz --access=public",
     "publish:universal-ssr-mocks": "npm publish ./dist/universal-ssr-mocks/trilon-universal-ssr-mocks-1.0.0.tgz --access=public",
     "publish": "npm run build:ng-universal && npm run publish:ng-universal",
     "test": "ng test",
