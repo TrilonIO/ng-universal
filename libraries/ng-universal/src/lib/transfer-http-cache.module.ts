@@ -27,7 +27,7 @@ imports: [
   imports: [BrowserTransferStateModule]
 })
 export class TransferHttpCacheModule {
-  static forRoot(options: TransferStateOptions): ModuleWithProviders {
+  static forRoot(options: TransferStateOptions): ModuleWithProviders<any> {
       return {
           ngModule: TransferHttpCacheModule,
           providers: [
